@@ -1,2 +1,2 @@
-# NovaBlog cms
+# Foodeiblogy cms
 This cms built with laravel framework and mysql database
