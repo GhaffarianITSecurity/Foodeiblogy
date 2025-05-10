@@ -43,7 +43,7 @@
 
       <div class="top-row d-flex align-items-center justify-content-between">
         <a href="{{ route('home') }}" class="logo d-flex align-items-end">
-          FoodeiBlogy
+          فودی بلاگی
         </a>
 
         <div class="d-flex align-items-center">
@@ -66,7 +66,7 @@
       <div class="container d-flex justify-content-center position-relative">
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="{{ route('home') }}" class="active">Home</a></li>
+            <li><a href="{{ route('home') }}" class="active">صفحه اصلی</a></li>
             
               @auth
                 <li><form  method='POST' action={{ route('logout') }}>

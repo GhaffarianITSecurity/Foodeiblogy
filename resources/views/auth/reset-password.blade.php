@@ -32,7 +32,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('Reset Password') }}
+                بازیابی پسورد
             </x-primary-button>
         </div>
     </form>
