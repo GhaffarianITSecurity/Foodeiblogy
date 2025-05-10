@@ -82,9 +82,9 @@
               <li><a href="{{ route('login') }}" class="active">ورود
               @endguest  
             </a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="author-profile.html">Author Profile</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">درباره ما</a></li>
+            <li><a href="author-profile.html">نویسنده و برنامه نویس وبلاگ</a></li>
+            <li><a href="contact.html">ارتباط با ما</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
         </nav>
@@ -107,7 +107,7 @@
             <img src="assets/img/blog/blog-post-3.webp" alt="Blog Image" class="img-fluid">
             <div class="blog-content">
               <div class="post-meta">
-                <span class="date">Apr. 14th, 2025</span>
+                <span class="date">{{verta()}}</span>
                 <span class="category">Technology</span>
               </div>
               <h2 class="post-title">
