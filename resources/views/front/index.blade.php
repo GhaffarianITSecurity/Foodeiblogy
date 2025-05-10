@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 
 <head>
   <meta charset="utf-8">
@@ -42,10 +42,8 @@
     <div class="container-fluid container-xl position-relative">
 
       <div class="top-row d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-end">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.webp" alt=""> -->
-          <h1 class="sitename">FoodeiBlogy</h1><span>.</span>
+        <a href="{{ route('home') }}" class="logo d-flex align-items-end">
+          FoodeiBlogy
         </a>
 
         <div class="d-flex align-items-center">
@@ -68,12 +66,27 @@
       <div class="container d-flex justify-content-center position-relative">
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="{{ route('home') }}" class="active">Home</a></li>
+            
+              @auth
+                <li><form  method='POST' action={{ route('logout') }}>
+                  @csrf
+                  <button class="btn btn-link  active text-decoration-none fw-bold">خروج</button></form>
+                
+              @endauth
+              @auth
+                <li><a href="{{ route('profile.edit') }}">پرفایل
+                
+              @endauth
+              @guest
+              <li><a href="{{ route('login') }}" class="active">ورود
+              @endguest  
+            </a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="author-profile.html">Author Profile</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
         </nav>
       </div>
     </div>

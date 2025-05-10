@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7af64e8f4d4cdf08cbbe45e59306b50",
+    "content-hash": "7ffd75c00941b2b824e7c63c9611fabe",
     "packages": [
         {
             "name": "brick/math",
@@ -2075,30 +2075,30 @@
         },
         {
             "name": "maize-tech/laravel-markable",
-            "version": "2.2.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maize-tech/laravel-markable.git",
-                "reference": "e88f4c6d19a54a94fa9759f9d54f47b7232d354b"
+                "reference": "de524eda95980f0fbc0c65372956e0c04f17bee9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maize-tech/laravel-markable/zipball/e88f4c6d19a54a94fa9759f9d54f47b7232d354b",
-                "reference": "e88f4c6d19a54a94fa9759f9d54f47b7232d354b",
+                "url": "https://api.github.com/repos/maize-tech/laravel-markable/zipball/de524eda95980f0fbc0c65372956e0c04f17bee9",
+                "reference": "de524eda95980f0fbc0c65372956e0c04f17bee9",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "^9.0|^10.0|^11.0",
-                "illuminate/support": "^9.0|^10.0|^11.0",
+                "illuminate/database": "^9.0|^10.0|^11.0|^12.0",
+                "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.14.1"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
-                "orchestra/testbench": "^7.0|^8.0|^9.0",
-                "phpunit/phpunit": "^9.5|^10.5",
+                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^9.5|^10.5|^11.5.3",
                 "spatie/laravel-ray": "^1.29",
-                "vimeo/psalm": "^4.22|^5.22"
+                "vimeo/psalm": "^4.22|^5.22|^6.6"
             },
             "type": "library",
             "extra": {
@@ -2142,7 +2142,7 @@
             ],
             "support": {
                 "issues": "https://github.com/maize-tech/laravel-markable/issues",
-                "source": "https://github.com/maize-tech/laravel-markable/tree/2.2.0"
+                "source": "https://github.com/maize-tech/laravel-markable/tree/2.3.1"
             },
             "funding": [
                 {
@@ -2150,7 +2150,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-27T10:15:46+00:00"
+            "time": "2025-03-28T18:54:24+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6447,29 +6447,29 @@
         },
         {
             "name": "laravel/breeze",
-            "version": "v2.3.0",
+            "version": "v2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/breeze.git",
-                "reference": "d59702967b9ae21879df905d691a50132966c4ff"
+                "reference": "390cbc433cb72fa6050965000b2d56c9ba6fd713"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/d59702967b9ae21879df905d691a50132966c4ff",
-                "reference": "d59702967b9ae21879df905d691a50132966c4ff",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/390cbc433cb72fa6050965000b2d56c9ba6fd713",
+                "reference": "390cbc433cb72fa6050965000b2d56c9ba6fd713",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "^11.0",
-                "illuminate/filesystem": "^11.0",
-                "illuminate/support": "^11.0",
-                "illuminate/validation": "^11.0",
+                "illuminate/console": "^11.0|^12.0",
+                "illuminate/filesystem": "^11.0|^12.0",
+                "illuminate/support": "^11.0|^12.0",
+                "illuminate/validation": "^11.0|^12.0",
                 "php": "^8.2.0",
                 "symfony/console": "^7.0"
             },
             "require-dev": {
-                "laravel/framework": "^11.0",
-                "orchestra/testbench-core": "^9.0",
+                "laravel/framework": "^11.0|^12.0",
+                "orchestra/testbench-core": "^9.0|^10.0",
                 "phpstan/phpstan": "^2.0"
             },
             "type": "library",
@@ -6504,7 +6504,7 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-            "time": "2024-12-14T21:21:42+00:00"
+            "time": "2025-03-06T14:02:32+00:00"
         },
         {
             "name": "laravel/pail",
@@ -9220,12 +9220,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
