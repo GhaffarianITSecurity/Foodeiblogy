@@ -2,18 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\CommentController;
 
-Route::get('/', function () {
-    return view('front.index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/posts/{post}', [HomeController::class, 'show'])->name('posts.show');
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+// Rating routes
+Route::middleware('auth')->group(function () {
+    Route::post('/posts/{post}/ratings', [RatingController::class, 'store'])->name('ratings.store');
+    Route::put('/posts/{post}/ratings/{rating}', [RatingController::class, 'update'])->name('ratings.update');
+    Route::delete('/posts/{post}/ratings/{rating}', [RatingController::class, 'destroy'])->name('ratings.destroy');
+});
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [AdminHomeController::class, 'index'])->name('dashboard');
 
     Route::prefix('category')->name('category.')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
@@ -37,11 +47,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->gro
     });
 
     Route::prefix('comment')->name('comment.')->group(function () {
-        Route::get('/', [CommentController::class, 'index'])->name('index');
-        Route::get('/show/{comment}', [CommentController::class, 'show'])->name('show');
-        Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('answer');
-        Route::delete('/destroy/{comment}', [CommentController::class, 'destroy'])->name('destroy');
-        Route::post('/status/{comment}', [CommentController::class, 'status'])->name('status');
+        Route::get('/', [AdminCommentController::class, 'index'])->name('index');
+        Route::get('/show/{comment}', [AdminCommentController::class, 'show'])->name('show');
+        Route::post('/answer/{comment}', [AdminCommentController::class, 'answer'])->name('answer');
+        Route::delete('/destroy/{comment}', [AdminCommentController::class, 'destroy'])->name('destroy');
+        Route::post('/status/{comment}', [AdminCommentController::class, 'status'])->name('status');
     });
 
     Route::prefix('user')->name('user.')->group(function () {
@@ -60,8 +70,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

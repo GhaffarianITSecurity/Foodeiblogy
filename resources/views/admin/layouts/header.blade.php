@@ -9,116 +9,16 @@
             <li class="nav-item d-none d-md-block">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link">داشبورد</a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('home') }}" class="nav-link">صفحه اصلی</a>
+            </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                    <i class="bi bi-chat-text"></i>
-                    <span class="navbar-badge badge text-bg-danger">13</span>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-lte-toggle="fullscreen">
+                    <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
+                    <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3">
-                            </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    کاربر 1
-                                    <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                </h3>
-                                <p class="fs-7">هر زمان تونستی تماس بگیر ...</p>
-                                <p class="fs-7 text-secondary">
-                                    <i class="bi bi-clock-fill me-1"></i>
-                                    4 ساعت قبل
-                                </p>
-                            </div>
-                        </div> <!--end::Message-->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3">
-                            </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    کاربر 1
-                                    <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                </h3>
-                                <p class="fs-7">هر زمان تونستی تماس بگیر ...</p>
-                                <p class="fs-7 text-secondary">
-                                    <i class="bi bi-clock-fill me-1"></i>
-                                    4 ساعت قبل
-                                </p>
-                            </div>
-                        </div> <!--end::Message-->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3">
-                            </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    کاربر 1
-                                    <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                </h3>
-                                <p class="fs-7">هر زمان تونستی تماس بگیر ...</p>
-                                <p class="fs-7 text-secondary">
-                                    <i class="bi bi-clock-fill me-1"></i>
-                                    4 ساعت قبل
-                                </p>
-                            </div>
-                        </div> <!--end::Message-->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3">
-                            </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    کاربر 1
-                                    <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                </h3>
-                                <p class="fs-7">هر زمان تونستی تماس بگیر ...</p>
-                                <p class="fs-7 text-secondary">
-                                    <i class="bi bi-clock-fill me-1"></i>
-                                    4 ساعت قبل
-                                </p>
-                            </div>
-                        </div> <!--end::Message-->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3">
-                            </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    کاربر 1
-                                    <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                </h3>
-                                <p class="fs-7">هر زمان تونستی تماس بگیر ...</p>
-                                <p class="fs-7 text-secondary">
-                                    <i class="bi bi-clock-fill me-1"></i>
-                                    4 ساعت قبل
-                                </p>
-                            </div>
-                        </div> <!--end::Message-->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">نمایش تمام پیام ها</a>
-                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-lte-toggle="fullscreen">
@@ -140,6 +40,7 @@
                         </p>
                     </li>
                     <li class="user-footer">
+                        <a href="{{ route('profile.edit') }}" class="btn btn-default btn-flat float-start">پروفایل</a>
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
                             <button type="submit" class="btn btn-default btn-flat float-end">خروج</button>

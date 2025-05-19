@@ -68,6 +68,13 @@ class User extends Authenticatable
             return asset('assets/images/user-avatar.png');
         }
 
-        return Storage::drive('public')->url($this->avatar);
+        // Debug the avatar path
+        \Log::info('Avatar path', [
+            'avatar' => $this->avatar,
+            'full_path' => Storage::url($this->avatar),
+            'exists' => Storage::exists($this->avatar)
+        ]);
+
+        return Storage::url($this->avatar);
     }
 }

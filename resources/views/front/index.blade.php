@@ -69,19 +69,18 @@
             <li><a href="{{ route('home') }}" class="active">صفحه اصلی</a></li>
             
               @auth
-                <li><form  method='POST' action={{ route('logout') }}>
+                <li><form method='POST' action={{ route('logout') }}>
                   @csrf
-                  <button class="btn btn-link  active text-decoration-none fw-bold">خروج</button></form>
-                
-              @endauth
-              @auth
-                <li><a href="{{ route('profile.edit') }}">پرفایل
-                
+                  <button class="btn btn-link active text-decoration-none fw-bold">خروج</button></form>
+                </li>
+                @if(auth()->user()->is_admin)
+                    <li><a href="{{ route('admin.dashboard') }}" class="active">داشبورد</a></li>
+                @endif
+                <li><a href="{{ route('profile.edit') }}" class="active">پروفایل</a></li>
               @endauth
               @guest
-              <li><a href="{{ route('login') }}" class="active">ورود
-              @endguest  
-            </a></li>
+                <li><a href="{{ route('login') }}" class="active">ورود</a></li>
+              @endguest
             <li><a href="about.html">درباره ما</a></li>
             <li><a href="author-profile.html">نویسنده و برنامه نویس وبلاگ</a></li>
             <li><a href="contact.html">ارتباط با ما</a></li>
@@ -97,95 +96,57 @@
 
     <!-- Blog Hero Section -->
     <section id="blog-hero" class="blog-hero section">
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="blog-grid">
-
           <!-- Featured Post (Large) -->
+          @if(isset($featuredPost) && $featuredPost)
           <article class="blog-item featured" data-aos="fade-up">
-            <img src="assets/img/blog/blog-post-3.webp" alt="Blog Image" class="img-fluid">
+            <img src="{{ asset('storage/' . $featuredPost->image) }}" alt="{{ $featuredPost->title }}" class="img-fluid">
             <div class="blog-content">
               <div class="post-meta">
-                <span class="date">{{verta()}}</span>
-                <span class="category">Technology</span>
+                <span class="date">{{ $featuredPost->created_at->format('M d, Y') }}</span>
+                <span class="category">{{ $featuredPost->category->name ?? 'Uncategorized' }}</span>
               </div>
               <h2 class="post-title">
-                <a href="blog-details.html" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
+                <a href="{{ route('posts.show', $featuredPost->id) }}" title="{{ $featuredPost->title }}">{{ $featuredPost->title }}</a>
               </h2>
             </div>
-          </article><!-- End Featured Post -->
+          </article>
+          @endif
 
           <!-- Regular Posts -->
-          <article class="blog-item" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/blog/blog-post-portrait-1.webp" alt="Blog Image" class="img-fluid">
-            <div class="blog-content">
-              <div class="post-meta">
-                <span class="date">Apr. 14th, 2025</span>
-                <span class="category">Security</span>
+          @if(isset($latestPosts) && $latestPosts->isNotEmpty())
+            @foreach($latestPosts as $post)
+            <article class="blog-item" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+              <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid">
+              <div class="blog-content">
+                <div class="post-meta">
+                  <span class="date">{{ $post->created_at->format('M d, Y') }}</span>
+                  <span class="category">{{ $post->category->name ?? 'Uncategorized' }}</span>
+                </div>
+                <h3 class="post-title">
+                  <a href="{{ route('posts.show', $post->id) }}" title="{{ $post->title }}">{{ $post->title }}</a>
+                </h3>
               </div>
-              <h3 class="post-title">
-                <a href="blog-details.html" title="Sed do eiusmod tempor incididunt ut labore">Sed do eiusmod tempor incididunt ut labore</a>
-              </h3>
+            </article>
+            @endforeach
+          @else
+            <div class="col-12 text-center">
+              <p>No posts found.</p>
             </div>
-          </article><!-- End Blog Item -->
-
-          <article class="blog-item" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/blog/blog-post-9.webp" alt="Blog Image" class="img-fluid">
-            <div class="blog-content">
-              <div class="post-meta">
-                <span class="date">Apr. 14th, 2025</span>
-                <span class="category">Career</span>
-              </div>
-              <h3 class="post-title">
-                <a href="blog-details.html" title="Ut enim ad minim veniam, quis nostrud exercitation">Ut enim ad minim veniam, quis nostrud exercitation</a>
-              </h3>
-            </div>
-          </article><!-- End Blog Item -->
-
-          <article class="blog-item" data-aos="fade-up" data-aos-delay="300">
-            <img src="assets/img/blog/blog-post-7.webp" alt="Blog Image" class="img-fluid">
-            <div class="blog-content">
-              <div class="post-meta">
-                <span class="date">Apr. 14th, 2025</span>
-                <span class="category">Cloud</span>
-              </div>
-              <h3 class="post-title">
-                <a href="blog-details.html" title="Adipiscing elit, sed do eiusmod tempor incididunt">Adipiscing elit, sed do eiusmod tempor incididunt</a>
-              </h3>
-            </div>
-          </article><!-- End Blog Item -->
-
-          <article class="blog-item" data-aos="fade-up" data-aos-delay="400">
-            <img src="assets/img/blog/blog-post-6.webp" alt="Blog Image" class="img-fluid">
-            <div class="blog-content">
-              <div class="post-meta">
-                <span class="date">Apr. 14th, 2025</span>
-                <span class="category">Programming</span>
-              </div>
-              <h3 class="post-title">
-                <a href="blog-details.html" title="Excepteur sint occaecat cupidatat non proident">Excepteur sint occaecat cupidatat non proident</a>
-              </h3>
-            </div>
-          </article><!-- End Blog Item -->
-
+          @endif
         </div>
-
       </div>
-
-    </section><!-- /Blog Hero Section -->
+    </section>
 
     <!-- Featured Posts Section -->
     <section id="featured-posts" class="featured-posts section">
-
-      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Featured Posts</h2>
         <div><span>Check Our</span> <span class="description-title">Featured Posts</span></div>
-      </div><!-- End Section Title -->
+      </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="blog-posts-slider swiper init-swiper">
           <script type="application/json" class="swiper-config">
             {
@@ -214,92 +175,33 @@
           </script>
 
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="blog-post-item">
-                <img src="assets/img/blog/blog-post-portrait-1.webp" alt="Blog Image">
-                <div class="blog-post-content">
-                  <div class="post-meta">
-                    <span><i class="bi bi-person"></i> Julia Parker</span>
-                    <span><i class="bi bi-clock"></i> Jan 15, 2025</span>
-                    <span><i class="bi bi-chat-dots"></i> 6 Comments</span>
+            @if(isset($featuredPosts) && $featuredPosts->isNotEmpty())
+              @foreach($featuredPosts as $post)
+              <div class="swiper-slide">
+                <div class="blog-post-item">
+                  <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+                  <div class="blog-post-content">
+                    <div class="post-meta">
+                      <span><i class="bi bi-person"></i> {{ $post->author->name ?? 'Anonymous' }}</span>
+                      <span><i class="bi bi-clock"></i> {{ $post->created_at->format('M d, Y') }}</span>
+                      <span><i class="bi bi-chat-dots"></i> {{ $post->comments_count ?? 0 }} Comments</span>
+                    </div>
+                    <h2><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></h2>
+                    <p>{{ Str::limit(strip_tags($post->content), 150) }}</p>
+                    <a href="{{ route('posts.show', $post->id) }}" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
                   </div>
-                  <h2><a href="#">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet</a></h2>
-                  <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce porttitor metus eget lectus consequat, sit amet feugiat magna vulputate.</p>
-                  <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="blog-post-item">
-                <img src="assets/img/blog/blog-post-portrait-2.webp" alt="Blog Image">
-                <div class="blog-post-content">
-                  <div class="post-meta">
-                    <span><i class="bi bi-person"></i> Mark Wilson</span>
-                    <span><i class="bi bi-clock"></i> Jan 18, 2025</span>
-                    <span><i class="bi bi-chat-dots"></i> 6 Comments</span>
-                  </div>
-                  <h2><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem</a></h2>
-                  <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sed ipsum.</p>
-                  <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
-                </div>
+              @endforeach
+            @else
+              <div class="col-12 text-center">
+                <p>No featured posts found.</p>
               </div>
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="blog-post-item">
-                <img src="assets/img/blog/blog-post-portrait-3.webp" alt="Blog Image">
-                <div class="blog-post-content">
-                  <div class="post-meta">
-                    <span><i class="bi bi-person"></i> Sarah Johnson</span>
-                    <span><i class="bi bi-clock"></i> Jan 21, 2025</span>
-                    <span><i class="bi bi-chat-dots"></i> 15 Comments</span>
-                  </div>
-                  <h2><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h2>
-                  <p>Nullam dictum felis eu pede mollis pretium integer tincidunt cras dapibus vivamus elementum semper nisi.</p>
-                  <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="blog-post-item">
-                <img src="assets/img/blog/blog-post-portrait-4.webp" alt="Blog Image">
-                <div class="blog-post-content">
-                  <div class="post-meta">
-                    <span><i class="bi bi-person"></i> David Brown</span>
-                    <span><i class="bi bi-clock"></i> Jan 24, 2025</span>
-                    <span><i class="bi bi-chat-dots"></i> 10 Comments</span>
-                  </div>
-                  <h2><a href="#">Et harum quidem rerum facilis est et expedita distinctio</a></h2>
-                  <p>Donec quam felis ultricies nec pellentesque eu pretium quis sem nulla consequat massa quis enim.</p>
-                  <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="blog-post-item">
-                <img src="assets/img/blog/blog-post-portrait-5.webp" alt="Blog Image">
-                <div class="blog-post-content">
-                  <div class="post-meta">
-                    <span><i class="bi bi-person"></i> Emma Davis</span>
-                    <span><i class="bi bi-clock"></i> Jan 27, 2025</span>
-                    <span><i class="bi bi-chat-dots"></i> 6 Comments</span>
-                  </div>
-                  <h2><a href="#">Nam libero tempore, cum soluta nobis est eligendi optio</a></h2>
-                  <p>Aenean leo ligula porttitor eu consequat vitae eleifend ac enim aliquam lorem ante dapibus in viverra.</p>
-                  <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-            </div><!-- End slide item -->
+            @endif
           </div>
-
         </div>
-
       </div>
-
-    </section><!-- /Featured Posts Section -->
+    </section>
 
     <!-- Category Section Section -->
    
@@ -307,176 +209,47 @@
   
     <!-- Latest Posts Section -->
     <section id="latest-posts" class="latest-posts section">
-
-      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Latest Posts</h2>
         <div><span>Check Our</span> <span class="description-title">Latest Posts</span></div>
-      </div><!-- End Section Title -->
+      </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-4">
-
-          <div class="col-lg-4">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-post-1.webp" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Politics</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/person/person-f-12.webp" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Maria Doe</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jan 1, 2022</time>
-                  </p>
+          @if(isset($recentPosts) && $recentPosts->isNotEmpty())
+            @foreach($recentPosts as $post)
+            <div class="col-lg-4">
+              <article>
+                <div class="post-img">
+                  <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid">
                 </div>
-              </div>
 
-            </article>
-          </div><!-- End post list item -->
+                <p class="post-category">{{ $post->category->name ?? 'Uncategorized' }}</p>
 
-          <div class="col-lg-4">
-            <article>
+                <h2 class="title">
+                  <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+                </h2>
 
-              <div class="post-img">
-                <img src="assets/img/blog/blog-post-2.webp" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Sports</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Nisi magni odit consequatur autem nulla dolorem</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/person/person-f-13.webp" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Allisa Mayer</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jun 5, 2022</time>
-                  </p>
+                <div class="d-flex align-items-center">
+                  <img src="{{ asset('storage/' . ($post->author->profile_photo_path ?? 'default-avatar.png')) }}" alt="{{ $post->author->name ?? 'Anonymous' }}" class="img-fluid post-author-img flex-shrink-0">
+                  <div class="post-meta">
+                    <p class="post-author">{{ $post->author->name ?? 'Anonymous' }}</p>
+                    <p class="post-date">
+                      <time datetime="{{ $post->created_at->format('Y-m-d') }}">{{ $post->created_at->format('M d, Y') }}</time>
+                    </p>
+                  </div>
                 </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-post-3.webp" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Entertainment</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Possimus soluta ut id suscipit ea ut in quo quia et soluta</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/person/person-m-10.webp" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Mark Dower</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jun 22, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-post-4.webp" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Sports</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Non rem rerum nam cum quo minus olor distincti</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/person/person-f-14.webp" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Lisa Neymar</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jun 30, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-post-5.webp" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Politics</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Accusamus quaerat aliquam qui debitis facilis consequatur</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/person/person-m-11.webp" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Denis Peterson</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jan 30, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-post-6.webp" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Entertainment</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Distinctio provident quibusdam numquam aperiam aut</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/person/person-f-15.webp" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Mika Lendon</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Feb 14, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
+              </article>
+            </div>
+            @endforeach
+          @else
+            <div class="col-12 text-center">
+              <p>No recent posts found.</p>
+            </div>
+          @endif
         </div>
       </div>
-
-    </section><!-- /Latest Posts Section -->
+    </section>
 
  
 
@@ -552,4 +325,5 @@
 
 </body>
 
+</html>
 </html>

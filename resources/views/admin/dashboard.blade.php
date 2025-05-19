@@ -19,7 +19,7 @@
                     <div class="col-lg-3 col-6"> <!--begin::Small Box Widget 1-->
                         <div class="small-box text-bg-primary">
                             <div class="inner">
-                                <h3>{{ App\Models\User::all()->count() }}</h3>
+                                <h3>{{ $usersCount }}</h3>
                                 <p>کاربران</p>
                             </div>
                             <i class="bi bi-people-fill small-box-icon"></i>
@@ -32,7 +32,7 @@
                     <div class="col-lg-3 col-6"> <!--begin::Small Box Widget 2-->
                         <div class="small-box text-bg-success">
                             <div class="inner">
-                                <h3>{{ App\Models\Post::all()->count() }}</h3>
+                                <h3>{{ $postsCount }}</h3>
                                 <p>تعداد مقالات</p>
                             </div>
                             <i class="bi bi-file-earmark-text-fill small-box-icon"></i>
@@ -45,8 +45,7 @@
                     <div class="col-lg-3 col-6"> <!--begin::Small Box Widget 3-->
                         <div class="small-box text-bg-warning">
                             <div class="inner">
-                                <h3>{{ App\Models\Comment::where('status', App\Enum\CommentStatusEnum::Pending)->get()->count() }}
-                                </h3>
+                                <h3>{{ $pendingCommentsCount }}</h3>
                                 <p>نظرات در انتظار</p>
                             </div>
                             <i class="bi bi-chat-square-text-fill small-box-icon"></i>
@@ -59,8 +58,7 @@
                     <div class="col-lg-3 col-6"> <!--begin::Small Box Widget 4-->
                         <div class="small-box text-bg-danger">
                             <div class="inner">
-                                <h3>{{ App\Models\Comment::where('status', App\Enum\CommentStatusEnum::Rejected)->get()->count() }}
-                                </h3>
+                                <h3>{{ $rejectedCommentsCount }}</h3>
                                 <p>نظرات رد شده</p>
                             </div>
                             <i class="bi bi-chat-square-text-fill small-box-icon"></i>

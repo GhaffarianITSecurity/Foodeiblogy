@@ -15,13 +15,13 @@ class Post extends Model
     use HasFactory, SoftDeletes, Markable;
 
     protected $fillable = [
-        'title',
-        'content',
-        'user_id',
-        'category_id',
-        'tags',
-        'status',
-        'image',
+        'title', // عنوان
+        'content', // محتوا
+        'user_id', // شناسه کاربر
+        'category_id', // شناسه دسته‌بندی
+        'tags', // برچسب‌ها
+        'status', // وضعیت
+        'image', // تصویر
     ];
 
     protected static $marks = [
@@ -51,12 +51,35 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function ingredients()
+    {
+        return $this->hasMany(Ingredient::class)->orderBy('order');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        return $this->ratings()->avg('rating') ?? 0;
+    }
+
+    public function getUserRatingAttribute()
+    {
+        if (!auth()->check()) {
+            return null;
+        }
+        return $this->ratings()->where('user_id', auth()->id())->first();
+    }
+
     public function getStatusTitleAttribute()
     {
         return match ($this->status->value) {
-            'published' => 'منشتر شده',
-            'draft' => 'پیش نویس',
-            'pending' => 'در انتظار',
+            'published' => 'منتشر شده',
+            'draft' => 'پیش‌نویس',
+            'pending' => 'در انتظار بررسی',
         };
     }
 
@@ -71,17 +94,17 @@ class Post extends Model
 
     public function isLiked(): bool
     {
-        if (!is_null(auth()->check()))
+        if (!auth()->check()) {
             return false;
-
+        }
         return Like::has($this, auth()->user());
     }
 
     public function isBookmarked(): bool
     {
-        if (!is_null(auth()->check()))
+        if (!auth()->check()) {
             return false;
-
+        }
         return Bookmark::has($this, auth()->user());
     }
 }

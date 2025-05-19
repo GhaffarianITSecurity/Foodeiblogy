@@ -24,6 +24,26 @@ class CommentController extends Controller
         return view('admin.comment.show', compact('comment'));
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'post_id' => 'required|exists:posts,id',
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'comment' => 'required|string',
+        ]);
+
+        $comment = Comment::create([
+            'post_id' => $validated['post_id'],
+            'full_name' => $validated['full_name'],
+            'email' => $validated['email'],
+            'comment' => $validated['comment'],
+            'status' => CommentStatusEnum::Pending,
+        ]);
+
+        return back()->with('success', 'نظر شما با موفقیت ثبت شد و پس از تایید نمایش داده خواهد شد.');
+    }
+
     public function answer(CommentAnswerRequest $request, Comment $comment)
     {
         $comment->answer()->create([

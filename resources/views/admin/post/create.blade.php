@@ -121,6 +121,38 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>مواد اولیه</label>
+                                        <div id="ingredients-container">
+                                            <div class="ingredient-row mb-3">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <input type="text" name="ingredients[0][name]" class="form-control" placeholder="نام ماده">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" name="ingredients[0][amount]" class="form-control" placeholder="مقدار">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" name="ingredients[0][unit]" class="form-control" placeholder="واحد">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="ingredients[0][notes]" class="form-control" placeholder="توضیحات">
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" class="btn btn-danger remove-ingredient" style="display: none;">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-success mt-2" id="add-ingredient">
+                                            <i class="bi bi-plus"></i> افزودن ماده
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -134,3 +166,58 @@
         </div>
     </main>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('ingredients-container');
+        const addButton = document.getElementById('add-ingredient');
+        let ingredientCount = 1;
+
+        addButton.addEventListener('click', function() {
+            const template = `
+                <div class="ingredient-row mb-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" name="ingredients[${ingredientCount}][name]" class="form-control" placeholder="نام ماده">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="ingredients[${ingredientCount}][amount]" class="form-control" placeholder="مقدار">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="ingredients[${ingredientCount}][unit]" class="form-control" placeholder="واحد">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" name="ingredients[${ingredientCount}][notes]" class="form-control" placeholder="توضیحات">
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-danger remove-ingredient">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', template);
+            ingredientCount++;
+
+            // Show remove button for first ingredient if there's more than one
+            if (ingredientCount > 1) {
+                document.querySelector('.remove-ingredient').style.display = 'block';
+            }
+        });
+
+        container.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-ingredient')) {
+                e.target.closest('.ingredient-row').remove();
+                ingredientCount--;
+
+                // Hide remove button for first ingredient if it's the only one
+                if (ingredientCount === 1) {
+                    document.querySelector('.remove-ingredient').style.display = 'none';
+                }
+            }
+        });
+    });
+</script>
+@endpush

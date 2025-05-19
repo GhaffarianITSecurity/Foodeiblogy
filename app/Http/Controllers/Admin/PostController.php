@@ -42,7 +42,22 @@ class PostController extends Controller
             $inputs['image'] = $result;
         }
 
-        Post::create($inputs);
+        $post = Post::create($inputs);
+
+        // Save ingredients
+        if ($request->has('ingredients')) {
+            foreach ($request->ingredients as $index => $ingredient) {
+                if (!empty($ingredient['name'])) {
+                    $post->ingredients()->create([
+                        'name' => $ingredient['name'],
+                        'amount' => $ingredient['amount'],
+                        'unit' => $ingredient['unit'],
+                        'notes' => $ingredient['notes'],
+                        'order' => $index
+                    ]);
+                }
+            }
+        }
 
         return to_route('admin.post.index')->with('success', 'پست جدید با موفقیت ایجاد شد');
     }
@@ -78,6 +93,22 @@ class PostController extends Controller
         }
 
         $post->update($inputs);
+
+        // Update ingredients
+        $post->ingredients()->delete(); // Remove existing ingredients
+        if ($request->has('ingredients')) {
+            foreach ($request->ingredients as $index => $ingredient) {
+                if (!empty($ingredient['name'])) {
+                    $post->ingredients()->create([
+                        'name' => $ingredient['name'],
+                        'amount' => $ingredient['amount'],
+                        'unit' => $ingredient['unit'],
+                        'notes' => $ingredient['notes'],
+                        'order' => $index
+                    ]);
+                }
+            }
+        }
 
         return to_route('admin.post.index')->with('success', 'پست با موفقیت ویرایش شد');
     }

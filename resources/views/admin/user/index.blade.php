@@ -47,8 +47,17 @@
                                                 <tr class="align-middle">
                                                     <td>{{ $user->id }}</td>
                                                     <td>
-                                                        <img src="{{ $user->user_avatar }}" alt="avatar image"
-                                                            class="w-100 rounded-circle">
+                                                        @if($user->avatar)
+                                                            <img src="{{ Storage::url($user->avatar) }}" 
+                                                                 alt="avatar image"
+                                                                 class="rounded-circle" 
+                                                                 style="width: 50px; height: 50px; object-fit: cover;">
+                                                        @else
+                                                            <img src="{{ asset('assets/images/user-avatar.png') }}" 
+                                                                 alt="default avatar"
+                                                                 class="rounded-circle" 
+                                                                 style="width: 50px; height: 50px; object-fit: cover;">
+                                                        @endif
                                                     </td>
                                                     <td>{{ $user->full_name }}</td>
                                                     <td>{{ $user->email }}</td>
