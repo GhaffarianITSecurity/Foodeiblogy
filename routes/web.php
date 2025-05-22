@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\BotController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/posts/{post}', [HomeController::class, 'show'])->name('posts.show');
@@ -76,5 +77,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Test endpoint
+Route::get('/test', function() {
+    return response()->json(['status' => 'ok', 'message' => 'Test endpoint working']);
+});
+
+// Telegram Bot Webhook - Allow all methods for testing
+Route::any('/telegram/webhook', [BotController::class, 'handleWebhook'])->name('telegram.webhook');
 
 require __DIR__ . '/auth.php';

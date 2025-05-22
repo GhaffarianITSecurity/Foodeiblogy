@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+buildCommand = "composer install --no-dev"
+
+[deploy]
+startCommand = "php artisan migrate --force"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 10 
