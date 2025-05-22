@@ -11,6 +11,10 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\HealthCheckController;
+
+// Health check route - must be first
+Route::get('/health', [HealthCheckController::class, 'check'])->name('health.check');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/posts/{post}', [HomeController::class, 'show'])->name('posts.show');

@@ -8,11 +8,41 @@ use App\Enum\PostStatusEnum;
 use App\Enum\CommentStatusEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        // Check if this is a health check request
+        if (request()->header('User-Agent') === 'Railway/1.0') {
+            try {
+                $status = [
+                    'status' => 'healthy',
+                    'timestamp' => now()->toIso8601String(),
+                    'php_version' => PHP_VERSION,
+                    'laravel_version' => app()->version(),
+                    'environment' => app()->environment()
+                ];
+
+                // Try database connection
+                try {
+                    DB::connection()->getPdo();
+                    $status['database'] = 'connected';
+                } catch (\Exception $e) {
+                    $status['database'] = 'disconnected';
+                }
+
+                return response()->json($status);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status' => 'unhealthy',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+        }
+
+        // Regular homepage logic
         try {
             // Initialize variables with empty collections
             $featuredPost = null;
