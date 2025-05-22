@@ -6,5 +6,4 @@ buildCommand = "composer install --no-dev"
 startCommand = "php artisan migrate --force"
 healthcheckPath = "/"
 healthcheckTimeout = 100
-restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 10 
+restartPolicy = "on-failure"
