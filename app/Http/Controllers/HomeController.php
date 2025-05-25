@@ -91,4 +91,21 @@ class HomeController extends Controller
 
         return view('front.posts.show', compact('post', 'relatedPosts'));
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        
+        $posts = Post::where('title', 'like', "%{$query}%")
+                     ->orWhere('content', 'like', "%{$query}%")
+                     ->paginate(10);
+        
+        return view('front.search', [
+            'posts' => $posts,
+            'query' => $query
+        ]);
+    }
 }
+
+ 
+

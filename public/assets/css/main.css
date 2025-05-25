@@ -230,11 +230,13 @@ h6 {
 }
 
 .header .top-row {
-  padding-bottom: 10px;
+  padding: 1rem 0;
+  text-align: center;
+  direction: rtl;
 }
 
-.header .top-row .logo {
-  text-decoration: none;
+.header .logo {
+  margin-bottom: 1.5rem !important;
 }
 
 .header .top-row .logo img {
@@ -257,6 +259,12 @@ h6 {
   line-height: 1.1;
 }
 
+.header .social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
 .header .social-links a {
   color: var(--heading-color);
   padding: 0 8px;
@@ -276,53 +284,55 @@ h6 {
 }
 
 .header .search-form {
-  position: relative;
-  width: 250px;
   display: flex;
   align-items: center;
-  padding: 0;
-  margin: 0;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  direction: rtl;
 }
 
-.header .search-form .form-control {
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  padding: 7px 40px 7px 15px;
-  background: transparent;
-  transition: 0.3s;
-  color: var(--default-color);
+.header .search-form input {
+  width: 100%;
+  padding: 10px 45px 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
   font-size: 14px;
-}
-
-.header .search-form .form-control::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 70%);
-}
-
-.header .search-form .form-control:focus {
-  border-color: var(--accent-color);
-  box-shadow: none;
+  color: var(--default-color);
+  background: var(--background-color);
 }
 
 .header .search-form button {
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border: 0;
-  background: none;
-  font-size: 16px;
-  padding: 0 15px;
-  margin: 0;
-  color: var(--heading-color);
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--accent-color);
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: 0.3s;
 }
 
 .header .search-form button:hover {
-  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 25%);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .header .search-form {
-    display: none;
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .header .search-form button {
+    left: 25px;
   }
 }
 
