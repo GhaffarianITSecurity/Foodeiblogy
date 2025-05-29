@@ -64,7 +64,8 @@
             @guest
               <li><a href="{{ route('login') }}">ورود</a></li>
             @endguest
-            <li><a href="{{ route('about') }}" class="active">درباره ما</a></li>
+            <li><a href="{{ route('about') }}">درباره ما</a></li>
+            <li><a href="{{ route('author') }}">درباره نویسنده و برنامه نویس</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
         </nav>
@@ -157,6 +158,7 @@
             <li><a href="#">خدمات</a></li>
             <li><a href="#">شرایط استفاده</a></li>
             <li><a href="#">حریم خصوصی</a></li>
+            <li><a href="{{ route('about-author') }}">درباره نویسنده و برنامه نویس</a></li>
           </ul>
         </div>
       </div>

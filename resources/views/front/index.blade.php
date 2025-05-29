@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Foodei- Blogy B</title>
+  <title>Foodei- Blogy </title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -46,17 +46,13 @@
           <span class="fw-bold">فودی بلاگی</span>
         </a>
 
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center mt-20">
           <form action="{{ route('search') }}" method="GET" class="search-form me-4">
             <input type="text" name="query" placeholder="جستجو..." class="form-control">
             <button type="submit" class="btn"><i class="bi bi-search"></i></button>
           </form>
 
-          <div class="social-links">
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          </div>
+
         </div>
       </div>
 
@@ -74,15 +70,15 @@
                   <button class="btn btn-link active text-decoration-none fw-bold">خروج</button></form>
                 </li>
                 @if(auth()->user()->is_admin)
-                    <li><a href="{{ route('admin.dashboard') }}" class="active">داشبورد</a></li>
+                    <li><a href="{{ route('admin.dashboard') }}" >داشبورد</a></li>
                 @endif
-                <li><a href="{{ route('profile.edit') }}" class="active">پروفایل</a></li>
+                <li><a href="{{ route('profile.edit') }}">پروفایل</a></li>
               @endauth
               @guest
-                <li><a href="{{ route('login') }}" class="active">ورود</a></li>
+                <li><a href="{{ route('login') }}" >ورود</a></li>
               @endguest
             <li><a href="{{ route('about') }}">درباره ما</a></li>
-            <li><a href="author-profile.html">نویسنده و برنامه نویس وبلاگ</a></li>
+            <li><a href="{{ route('author') }}">نویسنده و برنامه نویس وبلاگ</a></li>
             <li><a href="contact.html">ارتباط با ما</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
@@ -132,7 +128,7 @@
             @endforeach
           @else
             <div class="col-12 text-center">
-              <p>No posts found.</p>
+              <p>پستی جدیدی پیدا نشد.</p>
             </div>
           @endif
         </div>
@@ -142,8 +138,8 @@
     <!-- Featured Posts Section -->
     <section id="featured-posts" class="featured-posts section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Featured Posts</h2>
-        <div><span>Check Our</span> <span class="description-title">Featured Posts</span></div>
+        <h2>پست های برتر</h2>
+        <div><span>پست های</span> <span class="description-title">برتر مارا ببینید</span></div>
       </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -182,7 +178,6 @@
                   <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
                   <div class="blog-post-content">
                     <div class="post-meta">
-                      <span><i class="bi bi-person"></i> {{ $post->author->name ?? 'Anonymous' }}</span>
                       <span><i class="bi bi-clock"></i> {{ $post->created_at->format('M d, Y') }}</span>
                       <span><i class="bi bi-chat-dots"></i> {{ $post->comments_count ?? 0 }} Comments</span>
                     </div>
@@ -195,7 +190,7 @@
               @endforeach
             @else
               <div class="col-12 text-center">
-                <p>No featured posts found.</p>
+                <p>پستی پیدا نشد.</p>
               </div>
             @endif
           </div>
@@ -210,8 +205,8 @@
     <!-- Latest Posts Section -->
     <section id="latest-posts" class="latest-posts section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Latest Posts</h2>
-        <div><span>Check Our</span> <span class="description-title">Latest Posts</span></div>
+        <h2>اخرین پست ها</h2>
+        <div><span>اخرین</span> <span class="description-title">پست های مارو ببنید</span></div>
       </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -231,9 +226,7 @@
                 </h2>
 
                 <div class="d-flex align-items-center">
-                  <img src="{{ asset('storage/' . ($post->author->profile_photo_path ?? 'default-avatar.png')) }}" alt="{{ $post->author->name ?? 'Anonymous' }}" class="img-fluid post-author-img flex-shrink-0">
                   <div class="post-meta">
-                    <p class="post-author">{{ $post->author->name ?? 'Anonymous' }}</p>
                     <p class="post-date">
                       <time datetime="{{ $post->created_at->format('Y-m-d') }}">{{ $post->created_at->format('M d, Y') }}</time>
                     </p>
@@ -244,7 +237,7 @@
             @endforeach
           @else
             <div class="col-12 text-center">
-              <p>No recent posts found.</p>
+              <p>پست های جدیدی پیدا نشد</p>
             </div>
           @endif
         </div>

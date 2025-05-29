@@ -121,6 +121,42 @@ class PostSeeder extends Seeder
                         throw new \Exception("Failed to create post: {$post['title']}");
                     }
 
+                    // Add fake ingredients for each post
+                    $ingredients = [
+                        [
+                            'name' => 'برنج',
+                            'amount' => '200',
+                            'unit' => 'گرم',
+                            'notes' => 'برنج ایرانی'
+                        ],
+                        [
+                            'name' => 'گوشت گوسفند',
+                            'amount' => '150',
+                            'unit' => 'گرم',
+                            'notes' => 'تازه و بدون چربی'
+                        ],
+                        [
+                            'name' => 'پیاز',
+                            'amount' => '1',
+                            'unit' => 'عدد',
+                            'notes' => 'متوسط'
+                        ],
+                        [
+                            'name' => 'رب گوجه‌فرنگی',
+                            'amount' => '2',
+                            'unit' => 'قاشق غذاخوری',
+                            'notes' => ''
+                        ],
+                        [
+                            'name' => 'ادویه',
+                            'amount' => 'به میزان لازم',
+                            'unit' => '',
+                            'notes' => 'نمک، فلفل، زردچوبه'
+                        ],
+                    ];
+                    foreach ($ingredients as $ingredient) {
+                        $createdPost->ingredients()->create($ingredient);
+                    }
                     Log::info('Post created:', [
                         'post_id' => $createdPost->id,
                         'title' => $post['title'],
@@ -143,4 +179,4 @@ class PostSeeder extends Seeder
             throw $e;
         }
     }
-} 
+}

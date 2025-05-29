@@ -38,17 +38,12 @@
           <span class="fw-bold">فودی بلاگی</span>
         </a>
 
-        <div class="d-flex flex-column align-items-center mt-4">
+        <div class="d-flex flex-column  mt-10">
           <form action="{{ route('search') }}" method="GET" class="search-form mb-3">
             <input type="text" name="query" placeholder="جستجو..." class="form-control" value="{{ $query }}">
             <button type="submit" class="btn"><i class="bi bi-search"></i></button>
           </form>
 
-          <div class="social-links">
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          </div>
         </div>
       </div>
     </div>
@@ -74,6 +69,7 @@
               <li><a href="{{ route('login') }}">ورود</a></li>
             @endguest
             <li><a href="{{ route('about') }}">درباره ما</a></li>
+            <li><a href="{{ route('author') }}">نویسنده و برنامه نویس وبلاگ</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
         </nav>
@@ -95,10 +91,6 @@
               <article class="post-card shadow-sm rounded overflow-hidden h-100">
                 <div class="post-img position-relative">
                   <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid w-100" style="height: 220px; object-fit: cover;">
-                  <span class="post-date position-absolute bottom-0 end-0 bg-light text-dark m-2 px-2 py-1 rounded-pill small">
-                    <i class="bi bi-calendar me-1"></i>
-                    <time datetime="{{ $post->created_at->format('Y-m-d') }}">{{ $post->created_at->format('M d, Y') }}</time>
-                  </span>
                 </div>
 
                 <div class="post-content p-3">

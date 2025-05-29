@@ -14,7 +14,7 @@ use App\Http\Controllers\CommentController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/search', [HomeController::class, 'search'])->name('search');
-
+Route::view('/author-profile', 'front.about-author')->name('author');
 Route::view('/about', 'front.about')->name('about');
 Route::get('/posts/{post}', [HomeController::class, 'show'])->name('posts.show');
 Route::get('/category/{slug}', [HomeController::class, 'category'])->name('posts.category');

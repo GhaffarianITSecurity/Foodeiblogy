@@ -38,11 +38,7 @@
                 </a>
     
                 <div class="d-flex align-items-center">
-                    <div class="social-links">
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                    </div>
+                   
     
                     <form action="{{ route('search') }}" method="GET" class="search-form ms-4">
                         <input type="text" name="query" placeholder="جستجو..." class="form-control">
@@ -91,7 +87,6 @@
                     </div>
 
                     <div class="post-meta">
-                        <span><i class="bi bi-person"></i> {{ $post->author->name ?? 'ناشناس' }}</span>
                         <span><i class="bi bi-clock"></i> {{ $post->created_at->format('M d, Y') }}</span>
                         <span><i class="bi bi-chat-dots"></i> {{ $post->comments->count() }} نظر</span>
                         <span><i class="bi bi-folder"></i> {{ $post->category->name ?? 'بدون دسته‌بندی' }}</span>
@@ -282,16 +277,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
-                    </div>
-
-                    <div class="post-author mt-5 mb-5 p-4 border rounded">
-                        <div class="author-img me-4">
-                            <img src="{{ asset('storage/' . ($post->author->profile_photo_path ?? 'default-avatar.png')) }}" alt="{{ $post->author->name ?? 'ناشناس' }}">
-                        </div>
-                        <div class="author-info">
-                            <h4>{{ $post->author->name ?? 'ناشناس' }}</h4>
-                            <p>{{ $post->author->bio ?? 'اطلاعاتی موجود نیست' }}</p>
                         </div>
                     </div>
                 </article>
