@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RatingController extends Controller
 {
+    use AuthorizesRequests;
     public function store(Request $request, Post $post)
     {
         $request->validate([
@@ -51,4 +53,4 @@ class RatingController extends Controller
 
         return back()->with('success', 'Rating removed successfully!');
     }
-} 
+}

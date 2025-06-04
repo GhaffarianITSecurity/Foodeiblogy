@@ -158,7 +158,7 @@
             <li><a href="#">خدمات</a></li>
             <li><a href="#">شرایط استفاده</a></li>
             <li><a href="#">حریم خصوصی</a></li>
-            <li><a href="{{ route('about-author') }}">درباره نویسنده و برنامه نویس</a></li>
+            <li><a href="{{ route('author') }}">درباره نویسنده و برنامه نویس</a></li>
           </ul>
         </div>
       </div>

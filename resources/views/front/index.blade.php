@@ -79,7 +79,6 @@
               @endguest
             <li><a href="{{ route('about') }}">درباره ما</a></li>
             <li><a href="{{ route('author') }}">نویسنده و برنامه نویس وبلاگ</a></li>
-            <li><a href="contact.html">ارتباط با ما</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
         </nav>

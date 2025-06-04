@@ -157,14 +157,12 @@
                                             @endfor
                                             <input type="hidden" name="rating" value="{{ $post->user_rating->rating }}">
                                         </div>
-                                        <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">بروزرسانی امتیاز</button>
-                                            <form action="{{ route('ratings.destroy', [$post, $post->user_rating]) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">حذف امتیاز</button>
-                                            </form>
-                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm">بروزرسانی امتیاز</button>
+                                    </form>
+                                    <form action="{{ route('ratings.destroy', [$post, $post->user_rating]) }}" method="POST" class="d-inline mt-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">حذف امتیاز</button>
                                     </form>
                                 </div>
                             @else
@@ -222,15 +220,17 @@
 
                         @if($post->comments->isNotEmpty())
                             <div class="comments-list">
-                                @foreach($post->comments as $comment)
+                                @foreach($post->comments->where('parent_id', null) as $comment)
                                     @if($comment->status->value === \App\Enum\CommentStatusEnum::Approved->value)
                                         <div class="comment mb-4">
+                                            <!-- Parent comment markup -->
                                             <div class="d-flex align-items-start">
                                                 <div class="comment-img me-4">
-                                                    <img src="{{ asset('storage/' . ($comment->user->avatar ?? 'default-avatar.png')) }}" 
-                                                         alt="{{ $comment->full_name }}" 
-                                                         class="rounded-circle"
-                                                         width="60">
+                                                    @if($comment->user && $comment->user->avatar)
+                                                        <img src="{{ Storage::url($comment->user->avatar) }}" alt="{{ $comment->user->full_name }}" class="rounded-circle" width="60">
+                                                    @else
+                                                        <img src="{{ asset('assets/images/user-avatar.png') }}" alt="Default Profile Image" class="rounded-circle" width="60">
+                                                    @endif
                                                 </div>
                                                 <div class="comment-content pt-2">
                                                     <h5 class="mb-1">{{ $comment->full_name }}</h5>
@@ -238,6 +238,27 @@
                                                     <p class="mb-0">{{ $comment->comment }}</p>
                                                 </div>
                                             </div>
+                                            <!-- Render replies -->
+                                            @foreach($post->comments->where('parent_id', $comment->id) as $reply)
+                                                @if($reply->status->value === \App\Enum\CommentStatusEnum::Approved->value)
+                                                    <div class="comment-reply  mb-20 comment-reply ms-10">
+                                                        <div class="d-flex align-items-start">
+                                                            <div class="comment-img me-4">
+                                                                @if($reply->user && $reply->user->avatar)
+                                                                    <img src="{{ Storage::url($reply->user->avatar) }}" alt="{{ $reply->user->full_name }}" class="rounded-circle" width="60">
+                                                                @else
+                                                                    <img src="{{ asset('assets/images/user-avatar.png') }}" alt="Default Profile Image" class="rounded-circle" width="60">
+                                                                @endif
+                                                            </div>
+                                                            <div class="comment-content pt-2">
+                                                                <h5 class="mb-3">{{ $reply->full_name }}</h5>
+                                                                <p class="text-muted small mb-2">{{ $reply->created_at->format('M d, Y H:i') }}</p>
+                                                                <p class="mb-0">{{ $reply->comment }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         </div>
                                     @endif
                                 @endforeach
@@ -362,6 +383,10 @@
             });
         });
     </script>
+</body>
+
+</html>
+
 </body>
 
 </html>

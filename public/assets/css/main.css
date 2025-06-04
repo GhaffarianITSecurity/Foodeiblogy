@@ -3599,3 +3599,8 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+.comment-reply {
+  margin-right: 2rem;
+  border-right: 2px solid #eee;
+  background: #fafbfc;
+}
