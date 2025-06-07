@@ -95,7 +95,7 @@ class PostController extends Controller
         $post->update($inputs);
 
         // Update ingredients
-        $post->ingredients()->delete(); // Remove existing ingredients
+        $post->ingredients()->delete(); 
         if ($request->has('ingredients')) {
             foreach ($request->ingredients as $index => $ingredient) {
                 if (!empty($ingredient['name'])) {
