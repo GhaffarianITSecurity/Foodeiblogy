@@ -46,7 +46,7 @@
                                                 <th style="width: 10%">تصویر</th>
                                                 <th>عنوان</th>
                                                 <th>دسته بندی</th>
-                                                <th>نویسنده</th>
+                                                
                                                 <th>وضعیت</th>
                                                 <th style="width: 20%">عملیات</th>
                                             </tr>
@@ -61,7 +61,6 @@
                                                     </td>
                                                     <td>{{ $post->title }}</td>
                                                     <td>{{ $post->category->name }}</td>
-                                                    <td>{{ $post->author->full_name }}</td>
                                                     <td>
                                                         <span
                                                             class="badge text-bg-{{ $post->status_color }}">{{ $post->status_title }}</span>

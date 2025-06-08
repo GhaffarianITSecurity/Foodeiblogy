@@ -67,21 +67,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
-                                    <div class="form-group">
-                                        <label for="user_id">نویسنده</label>
-                                        <select name="user_id" id="user_id" class="form-select" data-choices
-                                            data-selecttext="کلیک برای انتخاب">
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}" @selected(old('user_id', $post->user_id) == $user->id)>
-                                                    {{ $user->full_name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('user_id')
-                                            <div class="text-danger">
-                                                <p>{{ $message }}</p>
-                                            </div>
-                                        @enderror
-                                    </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="form-group">

@@ -30,10 +30,7 @@
                                     <th style="width: 15%">دسته بندی</th>
                                     <td>{{ $post->category->name }}</td>
                                 </tr>
-                                <tr>
-                                    <th style="width: 15%">نویسنده</th>
-                                    <td>{{ $post->author->full_name }}</td>
-                                </tr>
+                               
                                 <tr>
                                     <th style="width: 15%">تاریخ ایجاد</th>
                                     <td>{{ verta($post->created_at)->format('%d %B %Y - H:s:i') }}</td>
