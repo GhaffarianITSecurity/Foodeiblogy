@@ -31,6 +31,7 @@ class PostController extends Controller
     public function store(PostCreateRequest $request, UploadService $uploadService)
     {
         $inputs = $request->validated();
+        $inputs['user_id'] = auth()->id();
 
         if ($request->hasFile('image')) {
             $result = $uploadService->folder('posts')->upload($request->file('image'));

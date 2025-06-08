@@ -92,19 +92,5 @@ class Post extends Model
         };
     }
 
-    public function isLiked(): bool
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-        return Like::has($this, auth()->user());
-    }
-
-    public function isBookmarked(): bool
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-        return Bookmark::has($this, auth()->user());
-    }
+   
 }

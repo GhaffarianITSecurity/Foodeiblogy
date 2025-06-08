@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryCreateRequest;
 use App\Http\Requests\Admin\CategoryUpdateRequest;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -23,7 +24,9 @@ class CategoryController extends Controller
 
     public function store(CategoryCreateRequest $request)
     {
-        Category::create($request->validated());
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['name']);
+        Category::create($data);
         return to_route('admin.category.index')->with('success', 'دسته بندی با موفقیت ایجاد شد.');
     }
 
@@ -40,7 +43,9 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category->update($request->validated());
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['name']);
+        $category->update($data);
         return to_route('admin.category.index')->with('success', 'دسته بندی با موفقیت ویرایش شد.');
     }
 

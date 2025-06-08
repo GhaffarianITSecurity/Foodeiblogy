@@ -14,35 +14,35 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            // Initialize variables with empty collections
+            // مقدار دهی متغییر ها برای ساختن کالکشن
             $featuredPost = null;
             $latestPosts = new Collection();
             $featuredPosts = new Collection();
             $recentPosts = new Collection();
             $categories = new Collection();
 
-            // Get featured post (latest published post)
-            $featuredPost = Post::with(['author', 'category'])
+
+            $featuredPost = Post::with(['category'])
                 ->where('status', PostStatusEnum::Published)
                 ->latest()
                 ->first();
 
-            // Get latest posts for the hero section
-            $latestPosts = Post::with(['author', 'category'])
+
+            $latestPosts = Post::with([ 'category'])
                 ->where('status', PostStatusEnum::Published)
                 ->latest()
                 ->take(4)
                 ->get();
 
             // Get posts for the featured posts section
-            $featuredPosts = Post::with(['author', 'category'])
+            $featuredPosts = Post::with([ 'category'])
                 ->where('status', PostStatusEnum::Published)
                 ->latest()
                 ->take(5)
                 ->get();
 
             // Get posts for the latest posts section
-            $recentPosts = Post::with(['author', 'category'])
+            $recentPosts = Post::with(['category'])
                 ->where('status', PostStatusEnum::Published)
                 ->latest()
                 ->take(6)
@@ -77,11 +77,11 @@ class HomeController extends Controller
             abort(404);
         }
 
-        $post->load(['author', 'category', 'comments' => function ($query) {
+        $post->load([ 'category', 'comments' => function ($query) {
             $query->where('status', CommentStatusEnum::Approved->value)->latest();
         }]);
 
-        $relatedPosts = Post::with(['author', 'category'])
+        $relatedPosts = Post::with(['category'])
             ->where('status', PostStatusEnum::Published)
             ->where('category_id', $post->category_id)
             ->where('id', '!=', $post->id)
