@@ -185,7 +185,7 @@
             container.insertAdjacentHTML('beforeend', template);
             ingredientCount++;
 
-            // Show remove button for first ingredient if there's more than one
+
             if (ingredientCount > 1) {
                 document.querySelector('.remove-ingredient').style.display = 'block';
             }
@@ -196,7 +196,7 @@
                 e.target.closest('.ingredient-row').remove();
                 ingredientCount--;
 
-                // Hide remove button for first ingredient if it's the only one
+
                 if (ingredientCount === 1) {
                     document.querySelector('.remove-ingredient').style.display = 'none';
                 }

@@ -99,8 +99,8 @@
             <img src="{{ asset('storage/' . $featuredPost->image) }}" alt="{{ $featuredPost->title }}" class="img-fluid">
             <div class="blog-content">
               <div class="post-meta">
-                <span class="date">{{ $featuredPost->created_at->format('M d, Y') }}</span>
-                <span class="category">{{ $featuredPost->category->name ?? 'Uncategorized' }}</span>
+                <span class="date">{{ verta($featuredPost->created_at)->format('%d %B %Y - H:s:i') }}</span>
+                <span class="category">{{ $featuredPost->category->name ?? 'دسته بندی اصلی' }}</span>
               </div>
               <h2 class="post-title">
                 <a href="{{ route('posts.show', $featuredPost->id) }}" title="{{ $featuredPost->title }}">{{ $featuredPost->title }}</a>
@@ -116,7 +116,7 @@
               <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid">
               <div class="blog-content">
                 <div class="post-meta">
-                  <span class="date">{{ $post->created_at->format('M d, Y') }}</span>
+                  <span class="date">{{ verta($featuredPost->created_at)->format('%d %B %Y - H:s:i') }}</span>
                   <span class="category">{{ $post->category->name ?? 'Uncategorized' }}</span>
                 </div>
                 <h3 class="post-title">
@@ -177,12 +177,12 @@
                   <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
                   <div class="blog-post-content">
                     <div class="post-meta">
-                      <span><i class="bi bi-clock"></i> {{ $post->created_at->format('M d, Y') }}</span>
-                      <span><i class="bi bi-chat-dots"></i> {{ $post->comments_count ?? 0 }} Comments</span>
+                      <span><i class="bi bi-clock"></i> {{ verta($post->created_at)->format('%d %B %Y - H:s:i') }}</span>
+                      <span><i class="bi bi-chat-dots"></i> {{ $post->comments_count ?? 0 }} کامنت ها</span>
                     </div>
                     <h2><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></h2>
                     <p>{{ Str::limit(strip_tags($post->content), 150) }}</p>
-                    <a href="{{ route('posts.show', $post->id) }}" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('posts.show', $post->id) }}" class="read-more">ادامه مطالب <i class="bi bi-arrow-right"></i></a>
                   </div>
                 </div>
               </div>
@@ -227,7 +227,7 @@
                 <div class="d-flex align-items-center">
                   <div class="post-meta">
                     <p class="post-date">
-                      <time datetime="{{ $post->created_at->format('Y-m-d') }}">{{ $post->created_at->format('M d, Y') }}</time>
+                      <time datetime="{{ verta($post->created_at)->format('%d %B %Y - H:s:i') }}">{{ verta($post->created_at)->format('%d %B %Y - H:s:i') }}</time>
                     </p>
                   </div>
                 </div>
@@ -260,12 +260,6 @@
             <p>کد پستی: ۱۴۳۴۵۶۷۸۹۰</p>
             <p class="mt-3"><strong>تلفن:</strong> <span>۱۲۳۴۵۶۷۸</span></p>
             <p><strong>ایمیل:</strong> <span>info@foodybloggy.ir</span></p>
-          </div>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
 

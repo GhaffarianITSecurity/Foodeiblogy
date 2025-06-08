@@ -27,7 +27,6 @@ class PostUpdateRequest extends FormRequest
             'title' => ['required', 'string', 'max:190'],
             'tags' => ['nullable', 'string', 'max:200'],
             'category_id' => ['required', 'numeric', 'exists:categories,id'],
-            'user_id' => ['required', 'numeric', 'exists:users,id'],
             'status' => ['required', Rule::enum(PostStatusEnum::class)],
             'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg'],
             'content' => ['required', 'string']

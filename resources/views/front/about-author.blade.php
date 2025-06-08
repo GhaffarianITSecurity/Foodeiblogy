@@ -53,7 +53,7 @@
     <section id="about-author" class="about">
       <div class="container" data-aos="fade-up">
         <div class="row position-relative justify-content-center">
-          <div class="col-lg-7 about-img" style="background-image: url('{{asset('assets/img/about/author-fake.jpg')}}'); background-size: cover; background-position: center; min-height: 400px; width: 100%; padding-bottom: 40px; margin-bottom: 30px;"></div>
+          <div class="col-lg-7 about-img" style="background-image: url('{{asset('assets/img/about/author-fake.jpg')}}'); background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 400px; width: 100%; padding-bottom: 40px; margin-bottom: 30px;"></div>
           <div class="col-lg-7 d-flex flex-column align-items-center">
             <h2 class="fw-bold mb-4">درباره نویسنده و برنامه نویس</h2>
             <p class="mb-3" style="font-size: 1.2rem;">

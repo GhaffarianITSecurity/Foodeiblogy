@@ -45,7 +45,7 @@ class PostController extends Controller
 
         $post = Post::create($inputs);
 
-        // Save ingredients
+
         if ($request->has('ingredients')) {
             foreach ($request->ingredients as $index => $ingredient) {
                 if (!empty($ingredient['name'])) {

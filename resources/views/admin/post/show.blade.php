@@ -44,10 +44,6 @@
                                     <td>{{ $post->tags }}</td>
                                 </tr>
                                 <tr>
-                                    <th style="width: 15%">تعداد لایک</th>
-                                    <td>1000 تا لایک</td>
-                                </tr>
-                                <tr>
                                     <th style="width: 15%">وضعیت</th>
                                     <td id="status_badge">
                                         <span
