@@ -68,16 +68,15 @@
                         @guest
                             <li><a href="{{ route('login') }}" class="active">ورود</a></li>
                         @endguest
-                        <li><a href="about.html">درباره ما</a></li>
-                        <li><a href="author-profile.html">نویسنده و برنامه نویس وبلاگ</a></li>
-                        <li><a href="contact.html">ارتباط با ما</a></li>
+                        <li><a href="{{ route('about') }}">درباره ما</a></li>
+                        <li><a href="{{ route('author') }}">نویسنده و برنامه نویس وبلاگ</a></li>
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list mt-4"></i>
                 </nav>
             </div>
         </div>
     </header>
-
+    @include('front.layouts.alerts')
     <main class="main">
         <section class="single-post">
             <div class="container">
@@ -327,7 +326,7 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
+ 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const starContainers = document.querySelectorAll('.star-rating');
@@ -381,6 +380,7 @@
             });
         });
     </script>
+    <script src="{{ asset('assets/js/jsalert.min.js') }}"></script>
 </body>
 
 </html>
@@ -388,3 +388,4 @@
 </body>
 
 </html>
+
