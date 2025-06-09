@@ -44,22 +44,11 @@
                 </div>
             </div>
             
-            <!-- Profile Settings -->
+
             <div class="col-md-8">
-                <div class="d-flex gap-4 mb-4">
-                    <button class="btn btn-link text-decoration-none p-0 fs-5 fw-bold text-primary" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">
-                        <i class="bi bi-person-circle me-2"></i>ویرایش پروفایل
-                    </button>
-                    <button class="btn btn-link text-decoration-none p-0 fs-5 fw-bold text-primary" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab">
-                        <i class="bi bi-key me-2"></i>تغییر رمز عبور
-                    </button>
-                    <button class="btn btn-link text-decoration-none p-0 fs-5 fw-bold text-danger" id="danger-tab" data-bs-toggle="tab" data-bs-target="#danger" type="button" role="tab">
-                        <i class="bi bi-trash me-2"></i>حذف حساب
-                    </button>
-                </div>
+               
 
                 <div class="tab-content" id="profileTabsContent">
-                    <!-- Profile Update Tab -->
                     <div class="tab-pane fade show active" id="profile" role="tabpanel">
                         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf

@@ -92,9 +92,9 @@
                 <div class="post-img position-relative">
                   <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid w-100" style="height: 220px; object-fit: cover;">
                 </div>
-
-                <div class="post-content p-3">
-                  <a href="{{ route('posts.category', $post->category->slug ?? 'uncategorized') }}" class="post-category d-inline-block mb-2 badge bg-primary text-decoration-none">{{ $post->category->name ?? 'دسته‌بندی نشده' }}</a>
+ 
+               <div class="post-content p-3">
+                  <span class="post-category d-inline-block mb-2 badge bg-primary text-decoration-none">{{ $post->category->name ?? 'دسته‌بندی نشده' }}</span>
                   
                   @if($post->tags)
                     <div class="post-tags mb-2">

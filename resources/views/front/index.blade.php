@@ -117,7 +117,7 @@
               <div class="blog-content">
                 <div class="post-meta">
                   <span class="date">{{ verta($featuredPost->created_at)->format('%d %B %Y - H:s:i') }}</span>
-                  <span class="category">{{ $post->category->name ?? 'Uncategorized' }}</span>
+                  <span class="category">{{ $post->category->name ?? 'بدون دسته بندی' }}</span>
                 </div>
                 <h3 class="post-title">
                   <a href="{{ route('posts.show', $post->id) }}" title="{{ $post->title }}">{{ $post->title }}</a>

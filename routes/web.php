@@ -17,7 +17,6 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::view('/author-profile', 'front.about-author')->name('author');
 Route::view('/about', 'front.about')->name('about');
 Route::get('/posts/{post}', [HomeController::class, 'show'])->name('posts.show');
-Route::get('/category/{slug}', [HomeController::class, 'category'])->name('posts.category');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
 
@@ -80,3 +79,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+

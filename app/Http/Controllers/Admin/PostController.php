@@ -17,7 +17,12 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = Post::when($request->filled('search'), function ($query) use ($request) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhereHas('category', function ($q2) use ($request) {
+                      $q2->where('name', 'like', '%' . $request->search . '%');
+                  });
+            });
         })->orderByDesc('created_at')->paginate();
         return view('admin.post.index', compact('posts'));
     }
@@ -35,7 +40,7 @@ class PostController extends Controller
         $inputs['user_id'] = auth()->id();
         $inputs['slug'] = Str::slug($inputs['title']);
 
-        $existing = Post::withTrashed()->where('title', $inputs['title'])->first();
+        $existing = Post::withTrashed()->where('slug', $inputs['slug'])->first();
         if ($existing) {
             if ($existing->trashed()) {
                 $existing->restore();

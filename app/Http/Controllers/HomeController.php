@@ -55,7 +55,7 @@ class HomeController extends Controller
 
             \Log::error('Error in HomeController@index: ' . $e->getMessage());
             
-            // Initialize empty collections if there's an error
+
             $latestPosts = new Collection();
             $featuredPosts = new Collection();
             $recentPosts = new Collection();
