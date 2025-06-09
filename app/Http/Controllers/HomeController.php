@@ -34,25 +34,25 @@ class HomeController extends Controller
                 ->take(4)
                 ->get();
 
-            // Get posts for the featured posts section
+
             $featuredPosts = Post::with([ 'category'])
                 ->where('status', PostStatusEnum::Published)
                 ->latest()
                 ->take(5)
                 ->get();
 
-            // Get posts for the latest posts section
+
             $recentPosts = Post::with(['category'])
                 ->where('status', PostStatusEnum::Published)
                 ->latest()
                 ->take(6)
                 ->get();
 
-            // Get all categories for the sidebar
+
             $categories = Category::withCount('posts')->get();
 
         } catch (\Exception $e) {
-            // Log the error
+
             \Log::error('Error in HomeController@index: ' . $e->getMessage());
             
             // Initialize empty collections if there's an error

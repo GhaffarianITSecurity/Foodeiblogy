@@ -14,6 +14,7 @@
         </div>
         <div class="app-content">
             <div class="container-fluid">
+                @include('admin.layouts.alerts')
                 <form action="{{ route('admin.category.update', $category) }}" method="post">
                     @csrf
                     @method('PUT')

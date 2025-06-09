@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UploadService\UploadService;
 use App\Http\Requests\Admin\PostCreateRequest;
 use App\Http\Requests\Admin\PostUpdateRequest;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -32,19 +33,28 @@ class PostController extends Controller
     {
         $inputs = $request->validated();
         $inputs['user_id'] = auth()->id();
+        $inputs['slug'] = Str::slug($inputs['title']);
+
+        $existing = Post::withTrashed()->where('title', $inputs['title'])->first();
+        if ($existing) {
+            if ($existing->trashed()) {
+                $existing->restore();
+                $existing->update($inputs);
+                $post = $existing;
+            } else {
+                return to_route('admin.post.create')->with('danger', 'پستی با این عنوان قبلاً وجود دارد.');
+            }
+        } else {
+            $post = Post::create($inputs);
+        }
 
         if ($request->hasFile('image')) {
             $result = $uploadService->folder('posts')->upload($request->file('image'));
-
             if (!$result) {
                 return to_route('admin.post.create')->with('warning', 'مکشلی در آپلود تصویر پیش آمده است');
             }
-
-            $inputs['image'] = $result;
+            $post->update(['image' => $result]);
         }
-
-        $post = Post::create($inputs);
-
 
         if ($request->has('ingredients')) {
             foreach ($request->ingredients as $index => $ingredient) {
@@ -59,7 +69,6 @@ class PostController extends Controller
                 }
             }
         }
-
         return to_route('admin.post.index')->with('success', 'پست جدید با موفقیت ایجاد شد');
     }
 
@@ -95,7 +104,7 @@ class PostController extends Controller
 
         $post->update($inputs);
 
-        // Update ingredients
+
         $post->ingredients()->delete(); 
         if ($request->has('ingredients')) {
             foreach ($request->ingredients as $index => $ingredient) {

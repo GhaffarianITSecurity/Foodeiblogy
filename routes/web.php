@@ -20,7 +20,7 @@ Route::get('/posts/{post}', [HomeController::class, 'show'])->name('posts.show')
 Route::get('/category/{slug}', [HomeController::class, 'category'])->name('posts.category');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
-// Rating routes
+
 Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/ratings', [RatingController::class, 'store'])->name('ratings.store');
     Route::put('/posts/{post}/ratings/{rating}', [RatingController::class, 'update'])->name('ratings.update');
@@ -70,12 +70,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->gro
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
-    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password.update');

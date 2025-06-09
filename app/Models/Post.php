@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Maize\Markable\Models\Bookmark;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, Markable;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title', // عنوان
@@ -24,10 +25,7 @@ class Post extends Model
         'image', // تصویر
     ];
 
-    protected static $marks = [
-        Like::class,
-        Bookmark::class,
-    ];
+
 
     protected function casts()
     {
@@ -41,10 +39,6 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 
     public function comments()
     {
@@ -93,4 +87,35 @@ class Post extends Model
     }
 
    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($post) {
+            $post->slug = static::generateUniqueSlug($post->title);
+        });
+
+        static::updating(function ($post) {
+            if ($post->isDirty('title')) {
+                $post->slug = static::generateUniqueSlug($post->title, $post->id);
+            }
+        });
+    }
+
+    protected static function generateUniqueSlug($title, $ignoreId = null)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $i = 1;
+        while (static::where('slug', $slug)
+            ->when($ignoreId, function ($query) use ($ignoreId) {
+                $query->where('id', '!=', $ignoreId);
+            })
+            ->withTrashed()
+            ->exists()) {
+            $slug = $originalSlug . '-' . $i;
+            $i++;
+        }
+        return $slug;
+    }
 }

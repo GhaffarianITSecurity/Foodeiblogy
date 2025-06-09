@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::paginate();
+        $categories = Category::paginate(3);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -26,6 +26,16 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Str::slug($data['name']);
+        $existing = Category::withTrashed()->where('slug', $data['slug'])->first();
+        if ($existing) {
+            if ($existing->trashed()) {
+                $existing->restore();
+                $existing->update($data);
+                return to_route('admin.category.index')->with('success', 'دسته بندی حذف شده بازیابی و بروزرسانی شد.');
+            } else {
+                return back()->withInput()->with('danger', 'این دستبندی در حال حاضر وجود دارد');
+            }
+        }
         Category::create($data);
         return to_route('admin.category.index')->with('success', 'دسته بندی با موفقیت ایجاد شد.');
     }

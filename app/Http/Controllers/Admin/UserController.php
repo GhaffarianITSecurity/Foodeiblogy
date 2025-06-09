@@ -25,21 +25,28 @@ class UserController extends Controller
     public function store(UserCreateRequest $request, UploadService $uploadService)
     {
         $inputs = $request->validated();
-
+        $existing = User::withTrashed()->where('email', $inputs['email'])->first();
+        if ($existing) {
+            if ($existing->trashed()) {
+                $existing->restore();
+                $existing->update($inputs);
+                $user = $existing;
+            } else {
+                return to_route('admin.user.create')->with('danger', 'کاربری با این ایمیل قبلاً وجود دارد.');
+            }
+        } else {
+            $user = User::create($inputs);
+        }
+    
         if ($request->hasFile('avatar')) {
             $result = $uploadService->folder('users')->upload($request->file('avatar'));
-
             if (!$result) {
                 return to_route('admin.user.create')->with('warning', 'مکشلی در آپلود تصویر پیش آمده است');
             }
-
-            $inputs['avatar'] = $result;
+            $user->update(['avatar' => $result]);
         }
-
-        $user = User::create($inputs);
-
+    
         $user->markEmailAsVerified();
-
         return to_route('admin.user.index')->with('success', 'کاربر با موفقیت ایجاد شد.');
     }
 
